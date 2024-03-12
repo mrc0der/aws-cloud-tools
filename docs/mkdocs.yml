@@ -1,0 +1,49 @@
+site_name: Repo Template
+site_description: A tempalte...what else?
+site_author: "Test Site"
+repo_name: zerodaysec/repo-template
+repo_url: http://github.com/mrc0der/test-code
+edit_uri: "edit/main/docs/"
+
+plugins:
+  - search
+  - git-revision-date-localized
+  - mkdocs-video
+
+theme:
+  name: material
+  language: en
+  features:
+    - search.highlight
+    - search.share
+    - content.code.annotate
+    - navigation.top
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+
+extra_css:
+  - stylesheets/extra.css
+
+# nav:
+#   - Home: index.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - meta
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details

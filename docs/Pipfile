@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+mkdocs = "*"
+mkdocs-material = "*"
+mkdocs-git-revision-date-localized-plugin = "*"
+mkdocs-video = "*"
+pymarkdownlnt = "*"
+invoke = "*"
+argparse = "*"
+requests = "*"
+ffmpeg = "*"
+ffprobe-python = "*"
+streamlit = "*"
+yfinance = "*"
+pandas = "*"
+google-auth = "*"
+google-auth-oauthlib = "*"
+google-auth-httplib2 = "*"
+google-api-python-client = "*"
+pymongo = "*"
+tqdm = "*"
+weather2 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "*"

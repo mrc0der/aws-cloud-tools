@@ -1,0 +1,55 @@
+#VERSION=0.1
+name: CI
+
+on: push
+
+env:
+    SVC_NAME: sk-example-app
+
+jobs:
+  pylint:
+    name: Pylint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.11'
+
+      - run: python -m pip install pipenv pylint
+
+    # TODO: Fix the linting issue...
+    #   - run: pipenv run pylint **/*.py
+
+  hadolint:
+    name: Hadolint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+
+  docker:
+    name: Docker build smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+    # TODO: Use this when ready to push
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+            push: false
+            tags: zerodaysec/${{ env.SVC_NAME }}:testing

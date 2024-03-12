@@ -1,0 +1,28 @@
+name: Update - pre-commit
+
+on:
+  schedule:
+    - cron: "0 15 * * 2"
+  workflow_dispatch:
+
+jobs:
+  pre-commit-autoupdate:
+    name: pre-commit autoupdate
+    runs-on: ubuntu-20.04
+    container:
+      image: ghcr.io/commaai/opendbc:latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: pre-commit autoupdate
+      run: |
+        git config --global --add safe.directory '*'
+        pre-commit autoupdate
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@a4f52f8033a6168103c2538976c07b467e8163bc
+      with:
+        token: ${{ secrets.ACTIONS_CREATE_PR_PAT }}
+        commit-message: Update pre-commit hook versions
+        title: '[robot] pre-commit: autoupdate hooks'
+        branch: pre-commit-updates
+        base: master
+        delete-branch: true
