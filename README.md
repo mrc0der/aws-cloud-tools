@@ -1,4 +1,4 @@
-# repo-template
+# AWS Cloud Tools
 
 Repo template with baked in goodies such as GitHub actions, CICD components and dependabot to auto-update resources for us.
 
@@ -14,9 +14,3 @@ Repo template with baked in goodies such as GitHub actions, CICD components and 
   * Terraform tf_fmt, tf_docs, tf_validate, tf_lint
   * Docker build & test & push
 * docs
-
-
-
-## More Info
-
-https://github.com/joelparkerhenderson/github-special-files-and-paths
