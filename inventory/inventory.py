@@ -30,8 +30,8 @@ def get_all_regions():
     """get all regions."""
     ec2 = boto3.client("ec2")
     # FIXME: this is a temp hardcoded region
-    return [region["RegionName"] for region in ec2.describe_regions()["Regions"]]
-    # return ["us-west-1"]
+    # return [region["RegionName"] for region in ec2.describe_regions()["Regions"]]
+    return ["us-east-1"]
 
 
 def paginate_and_collect(client, method_name, key):
@@ -190,7 +190,7 @@ def collect_and_save_resources():
             ("describe_launch_configurations", "LaunchConfigurations"),
             ("describe_auto_scaling_instances", "AutoScalingInstances"),
         ],
-        "athena": [("list_databases", "DatabaseList")],
+        "athena": [("list_data_catalogs", "DataCatalogsSummary")],
         "appstream": [
             ("describe_fleets", "Fleets"),
             ("describe_images", "Images"),
@@ -255,10 +255,19 @@ def collect_and_save_resources():
             ("describe_db_instances", "DBInstances"),
             ("describe_db_snapshots", "DBSnapshots"),
             ("describe_db_subnet_groups", "DBSubnetGroups"),
+            ("describe_db_clusters", "DBClusters"),
         ],
         "s3": [
             ("list_buckets", "Buckets"),
         ],
+        "secretsmanager": [("list_secrets", "SecretList")],
+        "sagemaker": [
+            ("list_clusters", "ClusterSummaries"),
+            ("list_endpoints", "Endpoints"),
+            ("list_notebook_instances", "NotebookInstances"),
+        ],
+        "sns": [("list_topics", "Topics")],
+        "sqs": [("list_queues", "QueueUrls")],
         "cloudformation": [("describe_stacks", "Stacks")],
         "cloudwatch": [("describe_alarms", "MetricAlarms")],
         "iam": [
@@ -268,14 +277,15 @@ def collect_and_save_resources():
             # ("list_groups", "Groups"),
         ],
         "route53": [("list_hosted_zones", "HostedZones")],
+        "route53domains": [("list_domains", "Domains")],
         "dynamodb": [
             ("list_tables", "TableNames"),
             ("list_backups", "BackupSummaries"),
         ],
         "ecs": [
             ("list_clusters", "ClusterArns"),
-            # ("list_services", "ServiceArns"),
-            # ("list_tasks", "TaskArns"),
+            # ("list_services", "ServiceArns"), # more inputs needed
+            # ("list_tasks", "TaskArns"), # more inputs needed
         ],
         "workspaces": [("describe_workspaces", "Workspaces")],
         "fsx": [("describe_file_systems", "FileSystems")],
@@ -283,6 +293,10 @@ def collect_and_save_resources():
         "guardduty": [
             ("list_detectors", "DetectorIds"),
         ],
+        "redshift": [
+            ("describe_clusters", "Clusters"),
+        ],
+        "network-firewall": [("list_firewalls", "Firewalls")],
     }
 
     non_paginated_services = {
@@ -292,7 +306,6 @@ def collect_and_save_resources():
         "secretsmanager": ("list_secrets", "SecretList"),
         "ssm": ("get_parameters_by_path", "Parameters"),
         "kms": ("list_keys", "Keys"),
-        "sns": ("list_topics", "Topics"),
         "cloudtrail": ("describe_trails", "trailList"),
         "codebuild": ("list_projects", "Projects"),
         "waf": ("list_web_acls", "WebACLs"),
